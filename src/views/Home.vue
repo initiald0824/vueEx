@@ -3,11 +3,13 @@
     <button @click="handleClick('back')">返回上一页</button>
     <button @click="handleClick('push')">跳转</button>
     <b>{{food}}</b>
+    <button @click="getInfo">请求数据</button>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import { getUserInfo } from '../api/user'
 
 export default {
   name: 'home',
@@ -28,6 +30,11 @@ export default {
           path: `/argu/${name}`
         })
       }
+    },
+    getInfo () {
+      getUserInfo({userId: 21}).then(res => {
+        console.log('res:', res)
+      })
     }
   },
   props: {
