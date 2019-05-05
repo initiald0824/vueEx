@@ -1,6 +1,9 @@
 <template>
   <div class="split-pane-con">
-    <split-pane></split-pane>
+    <split-pane>
+      <div slot="left">left</div>
+      <div slot="right">right</div>
+    </split-pane>
   </div>
 </template>
 
