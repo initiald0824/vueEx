@@ -9,7 +9,7 @@ const router = new Router({
   routes
 })
 
-const HAS_LOGINED = true
+const HAS_LOGINED = false
 
 router.beforeEach((to, from, next) => {
   to.meta && setTitle(to.meta.title)
