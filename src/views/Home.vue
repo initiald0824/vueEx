@@ -1,16 +1,25 @@
 <template>
   <div class="home">
-    <button @click="handleClick('back')">返回上一页</button>
-    <button @click="handleClick('push')">跳转</button>
-    <b>{{food}}</b>
-    <button @click="getInfo">请求数据</button>
+<!--    <button @click="handleClick('back')">返回上一页</button>-->
+<!--    <button @click="handleClick('push')">跳转</button>-->
+<!--    <b>{{food}}</b>-->
+<!--    <button @click="getInfo">请求数据</button>-->
+<!--    <button @click="handleLogout">退出登录</button>-->
+    <Row>
+      <i-col></i-col>
+    </Row>
+    <Row :gutter="10">
+      <i-col span="8"></i-col>
+      <i-col span="8"></i-col>
+      <i-col span="8"></i-col>
+    </Row>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import { getUserInfo } from '../api/user'
-
+import { mapActions } from 'vuex'
 export default {
   name: 'home',
   beforeRouteEnter (to, from, next) {
@@ -19,8 +28,12 @@ export default {
     })
   },
   beforeRouteLeave (to, from, next) {
+    next()
   },
   methods: {
+    ...mapActions([
+      'logout'
+    ]),
     handleClick (type) {
       if (type === 'back') {
         this.$router.back()
@@ -32,8 +45,14 @@ export default {
       }
     },
     getInfo () {
-      getUserInfo({userId: 21}).then(res => {
+      getUserInfo({ userId: 21 }).then(res => {
         console.log('res:', res)
+      })
+    },
+    handleLogout () {
+      this.logout()
+      this.$router.push({
+        name: 'login'
       })
     }
   },
@@ -45,3 +64,13 @@ export default {
   }
 }
 </script>
+<style lang="less">
+.home {
+  .ivu-col {
+    height: 50px;
+    background: pink;
+    background-clip: content-box;
+    margin-top: 10px;
+  }
+}
+</style>

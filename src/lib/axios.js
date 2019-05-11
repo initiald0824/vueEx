@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { baseURL } from '../config'
+import { getToken } from './util'
 
 class HttpRequest {
   constructor (baseUrl = baseURL) {
@@ -18,13 +19,14 @@ class HttpRequest {
     instance.interceptors.request.use(config => {
       // 添加全局的loading...
       // Spin.show()
+      config.headers['Authorization'] = getToken()
       return config
     }, error => {
       return Promise.reject(error)
     })
     instance.interceptors.response.use(res => {
-      console.log('res', res)
-      return res
+      const { data } = res
+      return data
     }, error => {
       return Promise.reject(error)
     })

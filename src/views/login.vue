@@ -7,8 +7,9 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
-  name: 'login',
+  name: 'login_page',
   data () {
     return {
       userName: '',
@@ -16,7 +17,21 @@ export default {
     }
   },
   methods: {
+    ...mapActions([
+      'login'
+    ]),
     handleSubmit () {
+      this.login({
+        userName: this.userName,
+        password: this.password
+      }).then((res) => {
+        console.log('success')
+        this.$router.push({
+          name: 'home'
+        })
+      }).catch((error) => {
+        console.log('error', error)
+      })
     }
   }
 }
